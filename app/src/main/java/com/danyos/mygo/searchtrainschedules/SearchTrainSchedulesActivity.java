@@ -1,26 +1,16 @@
-package com.danyos.mygo;
+package com.danyos.mygo.searchtrainschedules;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 
-import com.google.transit.realtime.GtfsRealtime;
+import com.danyos.mygo.R;
+import com.danyos.mygo.util.TransitFeedTask;
 
-import java.io.BufferedInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.text.MessageFormat;
-import java.util.Date;
 
-public class MainActivity extends AppCompatActivity {
-
-
-
+public class SearchTrainSchedulesActivity extends AppCompatActivity {
 
     private static final String TAG = "MyGO";
     private final String METHOD = "getFeeds";

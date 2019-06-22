@@ -1,4 +1,4 @@
-package com.danyos.mygo;
+package com.danyos.mygo.util;
 
 import android.os.AsyncTask;
 import android.util.Log;
