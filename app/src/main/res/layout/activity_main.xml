@@ -75,7 +75,8 @@
         android:textColor="@android:color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/button_showSchedules"
+        app:layout_constraintTop_toBottomOf="@id/spinner_endingStation"
+        android:layout_marginTop="@dimen/margin_edge"
         />
 
 
