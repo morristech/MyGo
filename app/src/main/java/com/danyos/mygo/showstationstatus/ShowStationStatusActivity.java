@@ -6,9 +6,13 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.danyos.mygo.R;
+import com.danyos.mygo.showstationstatus.model.Tripstatus;
 import com.danyos.mygo.util.TransitFeedTask;
+import com.squareup.moshi.JsonAdapter;
+import com.squareup.moshi.Moshi;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
@@ -57,33 +61,53 @@ public class ShowStationStatusActivity extends AppCompatActivity implements Tran
 
     @Override
     public void processFinish(String output) {
-        DocumentBuilder builder;
+
+        JSONArray tripStatusList = getTripListFromXml(output);
         try {
-            builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
-            InputSource src = new InputSource();
-            src.setCharacterStream(new StringReader(output));
+            JSONObject trip = tripStatusList.getJSONObject(0);
 
-            Document document = builder.parse(src);
-            String data = document.getElementsByTagName("Data").item(0).getTextContent();
-//            Log.d(TAG, "Data: \n" + data);
+            Moshi moshi = new Moshi.Builder().build();
+            JsonAdapter<Tripstatus> jsonAdapter = moshi.adapter(Tripstatus.class);
 
-            //  Parse Data node string to JSON
-            JSONObject jsonObject = new JSONObject(data);
-            JSONArray tripStatusArray = jsonObject.getJSONArray("TripStatus");
+            Log.d(TAG, "Trip : \n" + trip.toString());
+            Tripstatus tripstatus = jsonAdapter.fromJson(trip.toString());
+            Log.d(TAG, "Trip: " + tripstatus.getDirection());
 
-            Log.d(TAG, "Trips: " + tripStatusArray.length());
-
-            Log.d(TAG, "Trip 0: " + tripStatusArray.getJSONObject(0).getString("Direction")
-            + " - " + tripStatusArray.getJSONObject(0).getString("ScheduledTime"));
 
         } catch (Exception e) {
-            Log.e(TAG, "Error", e );
+            Log.e(TAG, "Error :" , e);
             e.printStackTrace();
         }
 
 
+    }
 
+    private JSONArray getTripListFromXml(String xml) {
 
+        DocumentBuilder builder;
+        try {
+
+            builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+        InputSource src = new InputSource();
+        src.setCharacterStream(new StringReader(xml));
+
+        Document document = builder.parse(src);
+        String data = document.getElementsByTagName("Data").item(0).getTextContent();
+//            Log.d(TAG, "Data: \n" + data);
+
+        //  Parse Data node string to JSON
+        JSONObject jsonObject = new JSONObject(data);
+        JSONArray tripStatusArray = jsonObject.getJSONArray("TripStatus");
+
+        Log.d(TAG, "Trips: " + tripStatusArray.length());
+
+        return tripStatusArray;
+
+        } catch (Exception e) {
+            Log.e(TAG, "Error", e );
+            e.printStackTrace();
+            return null;
+        }
 
     }
 
