@@ -23,6 +23,11 @@ public class TransitFeedTask extends AsyncTask<String, Void, String> {
         void processFinish(String output);
     }
 
+    public AsyncResponse delegate = null;
+
+    public TransitFeedTask(AsyncResponse delegate) {
+        this.delegate = delegate;
+    }
 
     @Override
     protected String doInBackground(String... strings) {
@@ -37,7 +42,7 @@ public class TransitFeedTask extends AsyncTask<String, Void, String> {
             url = new URL(strings[0]);
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
             InputStream in = new BufferedInputStream(urlConnection.getInputStream());
-            response= isToString(in);
+            response = isToString(in);
 
         } catch (MalformedURLException e) {
             Log.e(TAG, "Bad Url", e );
@@ -52,8 +57,9 @@ public class TransitFeedTask extends AsyncTask<String, Void, String> {
 
     @Override
     protected void onPostExecute(String s) {
-        super.onPostExecute(s);
-        Log.d(TAG, "Response: \n" + s.substring(0,100));
+        delegate.processFinish(s);
+//        super.onPostExecute(s);
+//        Log.d(TAG, "Response: \n" + s.substring(0,100));
 
     }
 

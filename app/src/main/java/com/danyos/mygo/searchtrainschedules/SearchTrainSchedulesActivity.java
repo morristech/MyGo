@@ -33,8 +33,8 @@ public class SearchTrainSchedulesActivity extends AppCompatActivity {
 
         Log.d(TAG, "URL: " + urlString);
 
-        TransitFeedTask task = new TransitFeedTask();
-        task.execute(urlString);
+//        TransitFeedTask task = new TransitFeedTask(this);
+//        task.execute(urlString);
 
     }
 
