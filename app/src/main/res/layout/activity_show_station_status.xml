@@ -6,4 +6,126 @@
     android:layout_height="match_parent"
     tools:context=".showstationstatus.ShowStationStatusActivity">
 
+
+    <TextView
+        android:id="@+id/textView_stationLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_edge"
+        android:text="@string/station"
+        android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+        android:textColor="@android:color/darker_gray"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView_stationName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:letterSpacing="0.05"
+        android:text="Scarborough GO"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textView_stationLabel" />
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        android:padding="8dp"
+        android:shrinkColumns="*"
+        android:stretchColumns="*"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView_stationName">
+
+        <TableRow
+            android:id="@+id/tableRow1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+            >
+
+            <TextView
+                android:id="@+id/textView_destination"
+                android:text="@string/destination"
+                style="@style/column_header" />
+
+            <TextView
+                android:id="@+id/textView_scheduled"
+                android:text="@string/scheduled"
+                style="@style/column_header" />
+
+            <TextView
+                android:id="@+id/textView_stopingAt"
+                android:text="@string/stops"
+                style="@style/column_header" />
+
+            <TextView
+                android:id="@+id/textView_platform"
+                android:text="@string/platform"
+                style="@style/column_header" />
+
+            <TextView
+                android:id="@+id/textView_status"
+                android:text="@string/status"
+                style="@style/column_header" />
+
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRow2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:text="Union"
+                style="@style/schedule_value" />
+
+            <TextView
+                style="@style/schedule_value"
+                android:text="20:25"
+
+                />
+
+            <TextView
+                style="@style/schedule_value"
+                android:text="Danforth - Union"
+
+                />
+
+            <TextView
+                style="@style/schedule_value"
+                android:text="1"
+
+                />
+
+            <TextView
+                style="@style/schedule_value"
+                android:text="On Time"
+
+                />
+        </TableRow>
+
+
+        <TableRow
+            android:id="@+id/tableRow3"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <TableRow
+            android:id="@+id/tableRow4"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <TableRow
+            android:id="@+id/tableRow5"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </TableLayout>
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
