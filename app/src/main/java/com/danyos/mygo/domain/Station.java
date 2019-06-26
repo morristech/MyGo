@@ -1,4 +1,4 @@
-package com.danyos.mygo.showstationstatus.model;
+package com.danyos.mygo.domain;
 
 import java.util.HashMap;
 import java.util.List;

@@ -1,35 +1,30 @@
 package com.danyos.mygo.showstationstatus;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.util.Log;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.danyos.mygo.R;
-import com.danyos.mygo.showstationstatus.model.Tripstatus;
+import com.danyos.mygo.domain.Tripstatus;
 import com.danyos.mygo.util.TransitFeedTask;
 import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
-import org.xml.sax.SAXException;
 
-import java.io.IOException;
 import java.io.StringReader;
 import java.text.MessageFormat;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
 
 public class ShowStationStatusActivity extends AppCompatActivity implements TransitFeedTask.AsyncResponse {
 
     TransitFeedTask task = new TransitFeedTask(this);
-
 
     private static final String TAG = "MyGO";
     private final String service = "09";
@@ -51,13 +46,13 @@ public class ShowStationStatusActivity extends AppCompatActivity implements Tran
 
         Log.d(TAG, "URL: " + urlString);
 
-
         task.execute(urlString);
 
 
 
 
     }
+
 
     @Override
     public void processFinish(String output) {

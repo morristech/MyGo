@@ -1,9 +1,6 @@
-package com.danyos.mygo.showstationstatus.model;
+package com.danyos.mygo.domain;
 
 import com.squareup.moshi.Json;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class TrackAttr {
 
