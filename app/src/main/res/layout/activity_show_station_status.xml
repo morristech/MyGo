@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".showstationstatus.ShowStationStatusActivity">
+    tools:context=".ui.showstationstatus.ShowStationStatusActivity">
 
 
     <TextView
@@ -32,13 +32,13 @@
         app:layout_constraintTop_toBottomOf="@id/textView_stationLabel" />
 
     <TableLayout
+        android:id="@+id/tableLayout_schedule"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="8dp"
         android:padding="8dp"
         android:shrinkColumns="*"
         android:stretchColumns="*"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView_stationName">
 
         <TableRow
@@ -126,6 +126,37 @@
             android:layout_height="match_parent" />
 
     </TableLayout>
+
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/button_getSchedules"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/get_schedule"
+        android:textAllCaps="false"
+        android:letterSpacing="0.05"
+        app:cornerRadius="20dp"
+        android:textColor="@android:color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:onClick="refreshSchedule"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="@dimen/margin_edge"
+        android:layout_marginTop="@dimen/margin_edge" />
+
+    <ProgressBar
+        android:visibility="gone"
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyle"
+        android:indeterminateTint="@color/colorAccent"
+        android:indeterminateTintMode="src_in"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_edge"
+        android:progressTint="@color/colorPrimary"
+        app:layout_constraintBottom_toTopOf="@id/button_getSchedules"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

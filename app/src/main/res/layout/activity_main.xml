@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:backgroundTint="#00A25555"
-    tools:context=".searchtrainschedules.SearchTrainSchedulesActivity">
+    tools:context=".ui.searchtrainschedules.SearchTrainSchedulesActivity">
 
     <TextView
         android:id="@+id/textView_header"
@@ -65,7 +65,7 @@
 
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/button_showSchedules"
+        android:id="@+id/button_getSchedules"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/get_schedule"

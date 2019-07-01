@@ -1,12 +1,11 @@
-package com.danyos.mygo.searchtrainschedules;
-
-import androidx.appcompat.app.AppCompatActivity;
+package com.danyos.mygo.ui.searchtrainschedules;
 
 import android.os.Bundle;
 import android.util.Log;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.danyos.mygo.R;
-import com.danyos.mygo.util.TransitFeedTask;
 
 import java.text.MessageFormat;
 

@@ -1,72 +1,52 @@
 package com.danyos.mygo.util;
 
 import android.os.AsyncTask;
+import android.view.View;
+import android.widget.ProgressBar;
+
+import com.danyos.mygo.data.TripStatusDataSource;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.io.UnsupportedEncodingException;
+import java.lang.ref.WeakReference;
 import java.nio.charset.StandardCharsets;
-
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
 
 public class TransitFeedTask extends AsyncTask<String, Void, String> {
 
+    private WeakReference<ProgressBar> progressBar;
+    private TripStatusDataSource dataSource;
     private static final String TAG = "MyGO";
-
     public interface AsyncResponse {
         void processFinish(String output);
     }
 
     public AsyncResponse delegate = null;
 
-    public TransitFeedTask(AsyncResponse delegate) {
+    public TransitFeedTask(AsyncResponse delegate,
+                           ProgressBar progressBar,
+                           TripStatusDataSource dataSource) {
         this.delegate = delegate;
+        this.progressBar = new WeakReference<>(progressBar);
+        this.dataSource = dataSource;
     }
 
     @Override
     protected String doInBackground(String... strings) {
-
-
-//        if (strings.length == 0 ) {
-//            Log.d(TAG, "Empty input");
-//        }
-//
-//        URL url = null;
-//        String response = null;
-//        try {
-//            url = new URL(strings[0]);
-//            HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-//            InputStream in = new BufferedInputStream(urlConnection.getInputStream());
-//            response = isToString(in);
-//
-//        } catch (MalformedURLException e) {
-//            Log.e(TAG, "Bad Url", e );
-//            e.printStackTrace();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-
-
-        OkHttpClient client = new OkHttpClient();
-        Request request = new Request.Builder()
-                .url(strings[0])
-                .build();
-        try (Response response = client.newCall(request).execute()) {
-            return response.body().string();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
+        progressBar.get().setVisibility(View.VISIBLE);
+        progressBar.get().animate();
         return null;
     }
 
     @Override
     protected void onPostExecute(String s) {
+
+        progressBar.get().invalidate();
+
         delegate.processFinish(s);
+
 //        super.onPostExecute(s);
 //        Log.d(TAG, "Response: \n" + s.substring(0,100));
 
