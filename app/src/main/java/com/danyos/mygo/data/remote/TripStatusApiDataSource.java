@@ -2,10 +2,11 @@ package com.danyos.mygo.data.remote;
 
 import android.util.Log;
 
-import androidx.lifecycle.LiveData;
+import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 
 import com.danyos.mygo.data.TripStatusDataSource;
+import com.danyos.mygo.data.remote.api.TransitFeedService;
 import com.danyos.mygo.domain.Tripstatus;
 import com.danyos.mygo.util.JsonParser;
 import com.squareup.moshi.JsonAdapter;
@@ -27,26 +28,25 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 public class TripStatusApiDataSource implements TripStatusDataSource {
 
     private static final String TAG = "MyGO";
-    private TransitFeedService service;
     private OkHttpClient client;
-
+    private TransitFeedService service;
+    private final MutableLiveData<List<Tripstatus>> data = new MutableLiveData<>();
     public TripStatusApiDataSource() {
         client = new OkHttpClient();
-    }
-
-
-    @Override
-    public LiveData<List<Tripstatus>> getTripStatus(String lineCd, String stationCd) {
-
-        final MutableLiveData<List<Tripstatus>> data = new MutableLiveData<>();
-
-
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(TransitFeedService.BASE_URL)
                 .addConverterFactory(ScalarsConverterFactory.create())
                 .build();
 
-        TransitFeedService service = retrofit.create(TransitFeedService.class);
+        service = retrofit.create(TransitFeedService.class);
+    }
+
+
+    @Override
+    public @NonNull
+    MutableLiveData<List<Tripstatus>> getTripStatus(String lineCd, String stationCd) {
+
+
 
         service.listTrips(lineCd, stationCd).enqueue(
                 new Callback<String>() {
@@ -57,8 +57,7 @@ public class TripStatusApiDataSource implements TripStatusDataSource {
 
                         Log.d(TAG, "TransitFeedService called successfully!");
 
-                        String apiResponse = response.body();
-                        JSONArray jsonTripArray = JsonParser.getTripListFromXml(apiResponse);
+                        JSONArray jsonTripArray = JsonParser.getTripListFromXml(response.body());
                         Moshi moshi = new Moshi.Builder().build();
                         List<Tripstatus> tripstatusList = new ArrayList<Tripstatus>();
 
@@ -69,6 +68,7 @@ public class TripStatusApiDataSource implements TripStatusDataSource {
                                 JsonAdapter<Tripstatus> jsonAdapter = moshi.adapter(Tripstatus.class);
                                 Tripstatus tripstatus = jsonAdapter.fromJson(trip.toString());
                                 tripstatusList.add(tripstatus);
+//                                Log.d(TAG, "Trip: " + tripstatus.getTripNumber());
 
                             } catch (Exception e) {
                                 Log.e(TAG, "Error", e);
@@ -87,7 +87,7 @@ public class TripStatusApiDataSource implements TripStatusDataSource {
                 }
         );
 
-
+        Log.d(TAG, "Returning data from API");
         return data;
 
     }

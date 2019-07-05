@@ -1,6 +1,6 @@
 package com.danyos.mygo.data;
 
-import android.app.Application;
+import android.content.Context;
 
 import androidx.lifecycle.MutableLiveData;
 
@@ -11,26 +11,25 @@ import java.util.List;
 
 public class TripStatusRepository {
 
-    private TripStatusDataSource tripStatusDataSource;
-    private MutableLiveData<List<Tripstatus>> allTrips;
+    private static TripStatusRepository instance;
+    private final MutableLiveData<List<Tripstatus>> data = new MutableLiveData<>();
+    private TripStatusDataSource dataSource;
 
-    public TripStatusRepository(Application application) {
-        this.tripStatusDataSource = new TripStatusApiDataSource();
-        allTrips = getTripStatus("09", "13");
+
+    public static TripStatusRepository getInstance(Context context) {
+        if (instance == null) {
+            instance = new TripStatusRepository(context);
+        }
+        return instance;
     }
 
-    public MutableLiveData<List<Tripstatus>> getTripStatus(String lineCd, String stationCd) {
-        return (MutableLiveData) tripStatusDataSource.getTripStatus(lineCd, stationCd);
-
+    public TripStatusRepository(Context context) {
+        dataSource = new TripStatusApiDataSource();
     }
 
-    public void updateTrips(String lineCd, String stationCd) {
-        allTrips.postValue(tripStatusDataSource.getTripStatus(lineCd, stationCd).getValue());
-    }
-
-
-    public MutableLiveData<List<Tripstatus>> getAllTrips() {
-        return allTrips;
+    public MutableLiveData<List<Tripstatus>> getTrips() {
+        data.setValue(dataSource.getTripStatus("09", "13").getValue());
+        return data;
     }
 
 

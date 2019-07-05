@@ -10,4 +10,5 @@ public interface TripStatusDataSource {
 
     LiveData<List<Tripstatus>> getTripStatus(String linecd, String stationCd);
 
+
 }

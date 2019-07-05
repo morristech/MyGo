@@ -1,4 +1,4 @@
-package com.danyos.mygo.data.remote;
+package com.danyos.mygo.data.remote.api;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -12,6 +12,4 @@ public interface TransitFeedService {
     Call<String> listTrips(
             @Path("serviceCd") String serviceCd,
             @Path("stationCd") String stationCd);
-
-
 }

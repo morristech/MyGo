@@ -15,29 +15,22 @@ import java.util.List;
 public class ShowStationStatusViewModel extends AndroidViewModel {
 
     private TripStatusRepository repository;
-
     private final MutableLiveData<List<Tripstatus>> trips;
 
     public ShowStationStatusViewModel(Application application) {
         super(application);
         TripStatusDataSource dataSource = new TripStatusApiDataSource();
         repository = new TripStatusRepository(application);
-        trips = repository.getAllTrips();
+        trips = repository.getTrips();
     }
 
-    public void getTrips(String lineCd, String stationCd) {
-        repository.updateTrips(lineCd, stationCd);
-        trips.setValue(repository.getAllTrips().getValue());
+    public void getTripStatusForLineStation(String lineCd, String stationCd) {
+        repository.getTrips();
     }
 
-
-    public MutableLiveData<List<Tripstatus>> getTripstatus() {
+    public MutableLiveData<List<Tripstatus>> getTrips() {
         return trips;
     }
 
-    @Override
-    protected void onCleared() {
-        super.onCleared();
 
-    }
 }

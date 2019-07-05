@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+
+    <TextView
+        style="@style/schedule_value"
+        android:layout_weight="1"
+        android:id="@+id/textView_destination"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Union" />
+
+    <TextView
+        style="@style/schedule_value"
+
+        android:layout_weight="1"
+        android:id="@+id/textView_scheduled"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="20:25" />
+
+    <TextView
+        style="@style/schedule_value"
+
+        android:layout_weight="1"
+        android:id="@+id/textView_stops"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Danforth - Union" />
+
+    <TextView
+        style="@style/schedule_value"
+
+        android:layout_weight="1"
+        android:id="@+id/textView_platform"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="1" />
+
+    <TextView
+        style="@style/schedule_value"
+
+        android:layout_weight="1"
+        android:id="@+id/textView_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="On Time" />
+
+
+</LinearLayout>
