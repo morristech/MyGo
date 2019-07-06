@@ -8,6 +8,8 @@ import android.widget.ProgressBar;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.danyos.mygo.R;
 import com.danyos.mygo.data.TripStatusDataSource;
@@ -18,6 +20,7 @@ public class ShowStationStatusActivity extends AppCompatActivity {
 
     ProgressBar progressBar;
     private ShowStationStatusViewModel viewModel;
+    private RecyclerView recyclerView;
 
     public static final String TAG = "MyGO";
     private final String[] serviceInfo = new String[]{"09", "13"};
@@ -34,12 +37,20 @@ public class ShowStationStatusActivity extends AppCompatActivity {
 
         viewModel = ViewModelProviders.of(this).get(ShowStationStatusViewModel.class);
 
+        recyclerView = findViewById(R.id.recyclerView_schedule);
+        final TripstatusRecyclerAdapter adapter =
+                new TripstatusRecyclerAdapter(viewModel.getTrips().getValue(), this);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
         viewModel.getTrips().observe(this, tripstatuses -> {
 
 
             if (tripstatuses == null) {
                 Log.d(TAG, "Trips are null");
             } else {
+                adapter.setTripstatusList(tripstatuses);
+
                 for (Tripstatus tripstatus : tripstatuses
                 ) {
                     Log.d(TAG, "Trip (Activity) : " + tripstatus.getTripNumber());
@@ -47,14 +58,6 @@ public class ShowStationStatusActivity extends AppCompatActivity {
             }
 
         });
-
-
-
-
-
-
-
-
 
 
     }

@@ -1,6 +1,7 @@
 package com.danyos.mygo.ui.showstationstatus;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,28 +22,49 @@ public class TripstatusRecyclerAdapter extends RecyclerView.Adapter<TripstatusVi
     public TripstatusRecyclerAdapter(List<Tripstatus> tripstatusList, Context context) {
         this.inflater = LayoutInflater.from(context);
         this.tripstatusList = tripstatusList;
+//        Log.d(ShowStationStatusActivity.TAG, );
     }
 
     @NonNull
     @Override
     public TripstatusViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = inflater.inflate(R.layout.recyclerview_schedule_item, parent);
+        View view = inflater.inflate(R.layout.recyclerview_schedule_item, parent, false);
         TripstatusViewHolder viewHolder = new TripstatusViewHolder(view, this);
+        Log.d(ShowStationStatusActivity.TAG, "Created Viewholder");
         return viewHolder;
     }
 
     @Override
     public void onBindViewHolder(@NonNull TripstatusViewHolder holder, int position) {
+        Log.d(ShowStationStatusActivity.TAG, "Binding data");
+
+
+
         Tripstatus tripstatus = tripstatusList.get(position);
         holder.destination.setText(tripstatus.getDestination());
         holder.scheduled.setText(tripstatus.getScheduledTime());
-        holder.stops.setText(tripstatus.getStoppingAtList().get(0).toString());
+        holder.stops.setText(tripstatus.getStoppingAt());
         holder.platform.setText(tripstatus.getTrack());
-        holder.status.setText(tripstatus.getStatusTimeStamp());
+        holder.status.setText(tripstatus.getExpected());
+
+
+        Log.d(ShowStationStatusActivity.TAG, "Trip # : " + tripstatus.getTripNumber());
+        for (int i = 0; i < tripstatus.getStopsList().size(); i++) {
+            Log.d(ShowStationStatusActivity.TAG, "stop: " + tripstatus.getStopsList().get(i).getStopName());
+        }
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        if (tripstatusList != null)
+            return tripstatusList.size();
+        else
+            return 0;
+    }
+
+    public void setTripstatusList(List<Tripstatus> tripstatusList) {
+        Log.d(ShowStationStatusActivity.TAG, "Setting adapter with list size: " + tripstatusList.size());
+        this.tripstatusList = tripstatusList;
+        notifyDataSetChanged();
     }
 }
