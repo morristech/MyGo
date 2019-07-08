@@ -30,15 +30,13 @@ public class TripstatusRecyclerAdapter extends RecyclerView.Adapter<TripstatusVi
     public TripstatusViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = inflater.inflate(R.layout.recyclerview_schedule_item, parent, false);
         TripstatusViewHolder viewHolder = new TripstatusViewHolder(view, this);
-        Log.d(ShowStationStatusActivity.TAG, "Created Viewholder");
+//        Log.d(ShowStationStatusActivity.TAG, "Created Viewholder");
         return viewHolder;
     }
 
     @Override
     public void onBindViewHolder(@NonNull TripstatusViewHolder holder, int position) {
-        Log.d(ShowStationStatusActivity.TAG, "Binding data");
-
-
+//        Log.d(ShowStationStatusActivity.TAG, "Binding data");
 
         Tripstatus tripstatus = tripstatusList.get(position);
         holder.destination.setText(tripstatus.getDestination());
@@ -47,11 +45,6 @@ public class TripstatusRecyclerAdapter extends RecyclerView.Adapter<TripstatusVi
         holder.platform.setText(tripstatus.getTrack());
         holder.status.setText(tripstatus.getExpected());
 
-
-        Log.d(ShowStationStatusActivity.TAG, "Trip # : " + tripstatus.getTripNumber());
-        for (int i = 0; i < tripstatus.getStopsList().size(); i++) {
-            Log.d(ShowStationStatusActivity.TAG, "stop: " + tripstatus.getStopsList().get(i).getStopName());
-        }
     }
 
     @Override
@@ -67,4 +60,5 @@ public class TripstatusRecyclerAdapter extends RecyclerView.Adapter<TripstatusVi
         this.tripstatusList = tripstatusList;
         notifyDataSetChanged();
     }
+
 }
