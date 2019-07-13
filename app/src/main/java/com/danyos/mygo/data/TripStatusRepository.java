@@ -15,7 +15,6 @@ public class TripStatusRepository {
     private final MutableLiveData<List<Tripstatus>> data = new MutableLiveData<>();
     private TripStatusDataSource dataSource;
 
-
     public static TripStatusRepository getInstance(Context context) {
         if (instance == null) {
             instance = new TripStatusRepository(context);

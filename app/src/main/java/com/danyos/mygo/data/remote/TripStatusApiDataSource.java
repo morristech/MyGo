@@ -47,15 +47,12 @@ public class TripStatusApiDataSource implements TripStatusDataSource {
     MutableLiveData<List<Tripstatus>> getTripStatus(String lineCd, String stationCd) {
 
 
-
         service.listTrips(lineCd, stationCd).enqueue(
                 new Callback<String>() {
                     @Override
                     public void onResponse(Call<String> call, Response<String> response) {
                         if (!response.isSuccessful())
                             return;
-
-                        Log.d(TAG, "TransitFeedService called successfully!");
 
                         JSONArray jsonTripArray = JsonParser.getTripListFromXml(response.body());
                         Moshi moshi = new Moshi.Builder().build();
@@ -76,6 +73,7 @@ public class TripStatusApiDataSource implements TripStatusDataSource {
                             }
                         }
 
+                        Log.d(TAG, "Transit data parsed. Setting transit data.");
                         data.setValue(tripstatusList);
 
                     }
@@ -87,7 +85,7 @@ public class TripStatusApiDataSource implements TripStatusDataSource {
                 }
         );
 
-        Log.d(TAG, "Returning data from API");
+        Log.d(TAG, "Returning data");
         return data;
 
     }

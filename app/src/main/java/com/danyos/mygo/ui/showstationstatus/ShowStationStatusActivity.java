@@ -24,7 +24,8 @@ public class ShowStationStatusActivity extends AppCompatActivity {
 
     public static final String TAG = "MyGO";
     private final String[] serviceInfo = new String[]{"09", "13"};
-    Button btnGetSchedules;
+    Button btnGetSchedule;
+    Button btnClear;
     TripStatusDataSource dataSource;
 
 
@@ -33,9 +34,9 @@ public class ShowStationStatusActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_station_status);
         progressBar = findViewById(R.id.progressBar_loading);
-        progressBar.setVisibility(View.VISIBLE);
-
-        btnGetSchedules = findViewById(R.id.button_getSchedules);
+        btnGetSchedule = findViewById(R.id.button_getSchedules);
+        btnClear = findViewById(R.id.button_clear);
+        Log.d(TAG, "onCreate thread: " + Thread.currentThread().getId());
 
         viewModel = ViewModelProviders.of(this).get(ShowStationStatusViewModel.class);
 
@@ -46,20 +47,13 @@ public class ShowStationStatusActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         viewModel.getTrips().observe(this, tripstatuses -> {
-
-            viewModel.getViewState().setValue(ShowStationStatusViewModel.ViewState.COMPLETE);
             Log.d(TAG, "Updated!");
 
-//            progressBar.setVisibility(View.GONE);
             if (tripstatuses == null) {
                 Log.d(TAG, "Trips are null");
             } else {
+                viewModel.getViewState().setValue(ShowStationStatusViewModel.ViewState.COMPLETE);
                 adapter.setTripstatusList(tripstatuses);
-//
-//                for (Tripstatus tripstatus : tripstatuses
-//                ) {
-//                    Log.d(TAG, "Trip (Activity) : " + tripstatus.getTripNumber());
-//                }
             }
 
         });
@@ -67,25 +61,46 @@ public class ShowStationStatusActivity extends AppCompatActivity {
         viewModel.getViewState().observe(this, new Observer<ShowStationStatusViewModel.ViewState>() {
             @Override
             public void onChanged(ShowStationStatusViewModel.ViewState viewState) {
+
+
                 if (viewState != null) {
                     switch (viewState) {
                         case LOADING:
-                            btnGetSchedules.setEnabled(false);
-                            progressBar.setVisibility(View.VISIBLE);
+                            Log.d(TAG, "Loading");
+                            renderLoadingState();
                             break;
                         case COMPLETE:
-                            progressBar.postInvalidate();
-                            btnGetSchedules.setEnabled(true);
+                            Log.d(TAG, "Complete");
+                            renderDataState();
                             break;
                     }
                 }
             }
         });
 
+        btnClear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                adapter.clear();
+            }
+        });
+
 
     }
 
+    private void renderLoadingState() {
+        btnGetSchedule.setEnabled(false);
+        progressBar.setVisibility(View.VISIBLE);
+    }
+
+    private void renderDataState() {
+        progressBar.setVisibility(View.INVISIBLE);
+        btnGetSchedule.setEnabled(true);
+    }
+
+
     public void refreshSchedule(View view) throws InterruptedException {
+        btnClear.callOnClick();
         viewModel.getTripStatusForLineStation("09", "13");
     }
 
@@ -94,4 +109,6 @@ public class ShowStationStatusActivity extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
     }
+
+
 }

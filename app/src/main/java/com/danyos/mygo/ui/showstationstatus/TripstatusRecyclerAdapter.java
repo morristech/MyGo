@@ -12,7 +12,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.danyos.mygo.R;
 import com.danyos.mygo.domain.Tripstatus;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 public class TripstatusRecyclerAdapter extends RecyclerView.Adapter<TripstatusViewHolder> {
 
@@ -38,9 +42,16 @@ public class TripstatusRecyclerAdapter extends RecyclerView.Adapter<TripstatusVi
     public void onBindViewHolder(@NonNull TripstatusViewHolder holder, int position) {
 //        Log.d(ShowStationStatusActivity.TAG, "Binding data");
 
+        Date date = new Date(System.currentTimeMillis());
+        DateFormat formatter = new SimpleDateFormat("HH:mm:ss");
+        formatter.setTimeZone(TimeZone.getTimeZone("UTC"));
+        String dateFormatted = formatter.format(date);
+
+        String time = tripstatusList.get(position).getStatusTimeStamp().substring(10, 17);
+
         Tripstatus tripstatus = tripstatusList.get(position);
         holder.destination.setText(tripstatus.getDestination());
-        holder.scheduled.setText(tripstatus.getScheduledTime());
+        holder.scheduled.setText(time);
         holder.stops.setText(tripstatus.getStoppingAt());
         holder.platform.setText(tripstatus.getTrack());
         holder.status.setText(tripstatus.getExpected());
@@ -59,6 +70,18 @@ public class TripstatusRecyclerAdapter extends RecyclerView.Adapter<TripstatusVi
         Log.d(ShowStationStatusActivity.TAG, "Setting adapter with list size: " + tripstatusList.size());
         this.tripstatusList = tripstatusList;
         notifyDataSetChanged();
+    }
+
+    public void clear() {
+        if (tripstatusList != null) {
+            int size = tripstatusList.size();
+            if (size != 0) {
+                tripstatusList.clear();
+                notifyItemRangeRemoved(0, size);
+            }
+        }
+
+
     }
 
 }
