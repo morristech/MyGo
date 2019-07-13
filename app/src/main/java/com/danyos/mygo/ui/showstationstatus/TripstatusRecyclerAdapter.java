@@ -47,14 +47,17 @@ public class TripstatusRecyclerAdapter extends RecyclerView.Adapter<TripstatusVi
         formatter.setTimeZone(TimeZone.getTimeZone("UTC"));
         String dateFormatted = formatter.format(date);
 
-        String time = tripstatusList.get(position).getStatusTimeStamp().substring(10, 17);
+        if (tripstatusList.get(position).getStatusTimeStamp() != null) {
+            String time = tripstatusList.get(position).getStatusTimeStamp().substring(10, 17);
 
+        }
         Tripstatus tripstatus = tripstatusList.get(position);
         holder.destination.setText(tripstatus.getDestination());
-        holder.scheduled.setText(time);
+        holder.scheduled.setText(tripstatus.getScheduledTime());
         holder.stops.setText(tripstatus.getStoppingAt());
         holder.platform.setText(tripstatus.getTrack());
         holder.status.setText(tripstatus.getExpected());
+
 
     }
 
@@ -80,8 +83,6 @@ public class TripstatusRecyclerAdapter extends RecyclerView.Adapter<TripstatusVi
                 notifyItemRangeRemoved(0, size);
             }
         }
-
-
     }
 
 }
