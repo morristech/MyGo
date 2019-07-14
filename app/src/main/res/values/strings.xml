@@ -2,7 +2,6 @@
     <string name="app_name">MyGo</string>
     <string name="search_schedules">Search Schedules</string>
     <string name="route">Route</string>
-    <string name="select_line">Select Line</string>
     <string name="starting_station">Starting Station</string>
     <string name="ending_station">Ending Station</string>
     <string name="get_schedule">Get Schedule</string>

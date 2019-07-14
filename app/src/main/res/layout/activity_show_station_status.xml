@@ -44,7 +44,6 @@
         app:layout_constraintTop_toBottomOf="@+id/textView_stationName">
 
         <TableRow
-            android:id="@+id/tableRow1"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
 
@@ -61,7 +60,6 @@
                 style="@style/column_header" />
 
             <TextView
-                android:id="@+id/textView_stopingAt"
                 android:text="@string/stops"
                 style="@style/column_header" />
 
@@ -77,55 +75,6 @@
 
         </TableRow>
 
-        <TableRow
-            android:id="@+id/tableRow2"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:text="Union"
-                style="@style/schedule_value" />
-
-            <TextView
-                style="@style/schedule_value"
-                android:text="20:25"
-
-                />
-
-            <TextView
-                style="@style/schedule_value"
-                android:text="Danforth - Union"
-
-                />
-
-            <TextView
-                style="@style/schedule_value"
-                android:text="1"
-
-                />
-
-            <TextView
-                style="@style/schedule_value"
-                android:text="On Time"
-
-                />
-        </TableRow>
-
-
-        <TableRow
-            android:id="@+id/tableRow3"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
-        <TableRow
-            android:id="@+id/tableRow4"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
-        <TableRow
-            android:id="@+id/tableRow5"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
 
     </TableLayout>
 

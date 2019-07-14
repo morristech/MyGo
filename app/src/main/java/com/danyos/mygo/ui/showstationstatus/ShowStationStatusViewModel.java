@@ -18,9 +18,7 @@ public class ShowStationStatusViewModel extends AndroidViewModel {
 
     private TripStatusRepository repository;
     public MutableLiveData<List<Tripstatus>> trips = new MutableLiveData<List<Tripstatus>>();
-
     public enum ViewState {LOADING, COMPLETE}
-
     private MutableLiveData<ViewState> viewState;
     AppExecutors executors;
 
@@ -29,7 +27,6 @@ public class ShowStationStatusViewModel extends AndroidViewModel {
         TripStatusDataSource dataSource = new TripStatusApiDataSource();
         repository = new TripStatusRepository(application);
         init();
-
     }
 
     private void init() {

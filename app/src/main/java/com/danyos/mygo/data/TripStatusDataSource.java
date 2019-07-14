@@ -7,6 +7,4 @@ import java.util.List;
 public interface TripStatusDataSource {
 
     List<Tripstatus> getTripStatus(String linecd, String stationCd);
-
-
 }

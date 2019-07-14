@@ -37,9 +37,7 @@ public class ShowStationStatusActivity extends AppCompatActivity {
         btnGetSchedule = findViewById(R.id.button_getSchedules);
         btnClear = findViewById(R.id.button_clear);
         Log.d(TAG, "onCreate thread: " + Thread.currentThread().getId());
-
         viewModel = ViewModelProviders.of(this).get(ShowStationStatusViewModel.class);
-
         recyclerView = findViewById(R.id.recyclerView_schedule);
         final TripstatusRecyclerAdapter adapter =
                 new TripstatusRecyclerAdapter(viewModel.getTrips().getValue(), this);

@@ -57,7 +57,6 @@ public class TripStatusApiDataSource implements TripStatusDataSource {
                 JsonAdapter<Tripstatus> jsonAdapter = moshi.adapter(Tripstatus.class);
                 Tripstatus tripstatus = jsonAdapter.fromJson(trip.toString());
                 tripstatusList.add(tripstatus);
-//                                Log.d(TAG, "Trip: " + tripstatus.getTripNumber());
             }
 
         } catch (Exception e) {
@@ -72,107 +71,4 @@ public class TripStatusApiDataSource implements TripStatusDataSource {
 
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*    @Override
-    public List<Tripstatus> getTripStatus(String lineCd, String stationCd) {
-
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(BASE_URL)
-                .addConverterFactory(ScalarsConverterFactory.create())
-                .build();
-        List<Tripstatus> tripstatusList;
-        TransitFeedService service = retrofit.create(TransitFeedService.class);
-        Call<String> tripList = service.listTrips(lineCd, stationCd);
-        tripList.enqueue(new Callback<String>() {
-            @Override
-            public void onResponse(Call<String> call, Response<String> response) {
-                if (!response.isSuccessful())
-                    return;
-
-                String apiResponse = response.body();
-                JSONArray jsonTripArray = JsonParser.getTripListFromXml(apiResponse);
-                Moshi moshi = new Moshi.Builder().build();
-                List<Tripstatus> tripstatusList = new ArrayList<Tripstatus>();
-
-                for (int i = 0; i < jsonTripArray.length(); i++) {
-                    JSONObject trip = null;
-                    try {
-                        trip = jsonTripArray.getJSONObject(i);
-                        JsonAdapter<Tripstatus> jsonAdapter = moshi.adapter(Tripstatus.class);
-                        Tripstatus tripstatus = jsonAdapter.fromJson(trip.toString());
-                        tripstatusList.add(tripstatus);
-                        Log.d(TAG, "Trip: " + tripstatus.getTripNumber());
-
-                    } catch (Exception e) {
-                        Log.e(TAG, "Error",e );
-                        e.printStackTrace();
-                    }
-
-                }
-
-            }
-
-            @Override
-            public void onFailure(Call<String> call, Throwable t) {
-
-            }
-
-        });*/
-
-
-//
-//        String urlString = MessageFormat.format(
-//                BASE_URL,
-//                lineCd,
-//                stationCd
-//        );
-//
-//
-//        Log.i(TAG, "URL: " + urlString);
-//        Request request = new Request.Builder()
-//                .url(urlString)
-//                .build();
-//        try (Response response = client.newCall(request).execute()) {
-//            String apiResponse = response.body().string();
-//            JSONArray jsonTripArray = JsonParser.getTripListFromXml(apiResponse);
-//            Moshi moshi = new Moshi.Builder().build();
-//            List<Tripstatus> tripstatusList = new ArrayList<Tripstatus>();
-//
-//            for (int i = 0; i < jsonTripArray.length(); i++) {
-//                JSONObject trip = jsonTripArray.getJSONObject(i);
-//                JsonAdapter<Tripstatus> jsonAdapter = moshi.adapter(Tripstatus.class);
-//                Tripstatus tripstatus = jsonAdapter.fromJson(trip.toString());
-//                tripstatusList.add(tripstatus);
-//
-//            }
-//
-//            return tripstatusList;
-//
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            return null;
-//        }
-//    }
 
